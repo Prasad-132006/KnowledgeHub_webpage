@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Articles</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Segoe UI;
+            background: #f4f6fb;
+        }
+
+        header {
+            background: #1f3cff;
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background: #e1e5ff;
+        }
+
+        @media (max-width: 600px) {
+
+            table,
+            thead,
+            tbody,
+            tr,
+            td,
+            th {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Articles</h1>
+        <div class="nav">
+            <a href="index.html">Home</a>
+            <a href="article.html">Articles</a>
+            <a href="tutorials.html">Tutorials</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <h2>What is Machine Learning?</h2>
+            <p>
+                Machine Learning (ML) is a branch of Artificial Intelligence that enables computers
+                to learn from data and improve their performance without being explicitly programmed.
+                Instead of following fixed instructions, ML systems identify patterns and make decisions
+                based on experience.
+            </p>
+
+            <p>
+                Machine Learning is widely used in real-life applications such as recommendation systems
+                (Netflix, YouTube), spam email filtering, voice assistants, image recognition, and
+                self-driving cars.
+            </p>
+
+            <p><b>Types of Machine Learning:</b></p>
+            <ul>
+                <li><b>Supervised Learning</b> – Learning using labeled data</li>
+                <li><b>Unsupervised Learning</b> – Finding patterns in unlabeled data</li>
+                <li><b>Reinforcement Learning</b> – Learning through rewards and penalties</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>Beginner Guide to Java</h2>
+            <p>
+                Java is a high-level, object-oriented programming language developed by Sun Microsystems.
+                It follows the principle of <b>"Write Once, Run Anywhere"</b>, which means Java programs
+                can run on any platform that supports Java Virtual Machine (JVM).
+            </p>
+
+            <p>
+                Java is widely used for building web applications, Android apps, enterprise software,
+                banking systems, and backend services.
+            </p>
+
+            <p><b>Key Features of Java:</b></p>
+            <ul>
+                <li>Object-Oriented</li>
+                <li>Platform Independent</li>
+                <li>Secure and Robust</li>
+                <li>Multithreaded</li>
+            </ul>
+
+            <p>
+                Java is an excellent choice for beginners because of its strong community support,
+                extensive libraries, and long-term industry demand.
+            </p>
+
+        </div>
+
+        <div class="card">
+            <h2>Basics of Networking & Internet</h2>
+            <p>
+                Computer Networking is the practice of connecting multiple computers and devices
+                to share data, resources, and services. A network allows communication between
+                systems using wired or wireless technologies.
+            </p>
+
+            <p>
+                The Internet is a global network of interconnected computers that enables services
+                such as websites, emails, file sharing, video streaming, and online communication.
+            </p>
+
+            <p><b>Key Networking Concepts:</b></p>
+            <ul>
+                <li><b>IP Address</b> – A unique identifier for devices on a network</li>
+                <li><b>DNS</b> – Converts domain names into IP addresses</li>
+                <li><b>Protocols</b> – Rules for data communication (HTTP, FTP, TCP/IP)</li>
+                <li><b>Client-Server Model</b> – Clients request services, servers respond</li>
+            </ul>
+
+            <p>
+                Networking knowledge is essential for careers in web development, cybersecurity,
+                cloud computing, and system administration.
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>Understanding Databases and SQL</h2>
+            <p>
+                A database is an organized collection of data that allows efficient storage,
+                retrieval, and management of information. Databases are widely used in applications
+                such as banking systems, websites, mobile apps, and enterprise software.
+            </p>
+
+            <p>
+                SQL (Structured Query Language) is used to communicate with databases. It allows
+                users to create tables, insert data, retrieve records, update values, and delete data.
+            </p>
+
+            <p><b>Types of Databases:</b></p>
+            <ul>
+                <li><b>Relational Databases</b> – MySQL, PostgreSQL, Oracle</li>
+                <li><b>NoSQL Databases</b> – MongoDB, Cassandra</li>
+            </ul>
+
+            <p><b>Common SQL Commands:</b></p>
+            <ul>
+                <li><b>SELECT</b> – Fetch data from a table</li>
+                <li><b>INSERT</b> – Add new records</li>
+                <li><b>UPDATE</b> – Modify existing data</li>
+                <li><b>DELETE</b> – Remove records</li>
+            </ul>
+            <p>
+                Understanding databases and SQL is crucial for backend development, data analysis,
+                and full-stack application development.
+            </p>
+
+        </div>
+
+        <div class="card">
+            <h2>Skill Progress Tracker</h2>
+            <table>
+                <tr>
+                    <th>Skill</th>
+                    <th>Beginner</th>
+                    <th>Intermediate</th>
+                    <th>Advanced</th>
+                </tr>
+                <tr>
+                    <td>Java</td>
+                    <td>✔</td>
+                    <td>—</td>
+                    <td>—</td>
+                </tr>
+                <tr>
+                    <td>Web Dev</td>
+                    <td>✔</td>
+                    <td>✔</td>
+                    <td>—</td>
+                </tr>
+                <tr>
+                    <td>SQL</td>
+                    <td>✔</td>
+                    <td>—</td>
+                    <td>—</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

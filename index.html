@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KnowledgeHub</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Segoe UI, sans-serif;
+            background: #f4f6fb;
+            color: #333;
+        }
+
+        header {
+            background: #1f3cff;
+            color: white;
+            text-align: center;
+            padding: 35px 15px;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 25px 15px;
+        }
+
+        .card {
+            background: white;
+            padding: 22px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #1f3cff;
+            margin-bottom: 10px;
+        }
+
+        .login-box {
+            max-width: 100%;
+            margin: auto;
+        }
+
+        .login-box input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            margin-top: 12px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        .login-box button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 16px;
+            background: #1f3cff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .contact-info {
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        .contact-info span {
+            font-weight: 600;
+        }
+
+        footer {
+            background: #e1e5ff;
+            text-align: center;
+            padding: 18px;
+            font-size: 14px;
+        }
+
+        @media(max-width:600px) {
+            header h1 {
+                font-size: 26px;
+            }
+
+            .login-box {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>KnowledgeHub</h1>
+        <p>Your place to learn, graduate, and succeed 🚀</p>
+
+        <div class="nav">
+            <a href="index.html">Home</a>
+            <a href="article.html">Articles</a>
+            <a href="tutorials.html">Tutorials</a>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <div class="card">
+            <h2>Login</h2>
+            <div class="login-box">
+                <input type="email" placeholder="Email address">
+                <input type="password" placeholder="Password">
+                <button>Login</button>
+                <p style="text-align:center;margin-top:10px;">
+                    New user? <a href="signup.html">Create Account</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Featured Articles</h2>
+            <ul>
+                <li>What is Machine Learning?</li>
+                <li>Beginner Guide to Java Programming</li>
+                <li>Basics of Networking & Internet</li>
+                <li>Understanding Databases and SQL</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>Popular Tutorials</h2>
+            <ol>
+                <li>Learn HTML in 20 Minutes</li>
+                <li>Java OOP Explained with Examples</li>
+                <li>How to Build a Simple REST API</li>
+                <li>Version Control with Git & GitHub</li>
+            </ol>
+        </div>
+
+        <div class="card">
+            <h2>Contact</h2>
+            <div class="contact-info">
+                <p><span>Email:</span> info@knowledgehub.demo</p>
+                <p><span>Phone:</span> +91 98765 43210</p>
+                <p><span>Address:</span> Thane, Maharashtra, India</p>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        © 2026 KnowledgeHub. All Rights Reserved.
+    </footer>
+
+</body>
+
+</html>
