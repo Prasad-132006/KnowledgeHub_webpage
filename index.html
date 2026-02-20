@@ -1,259 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>KnowledgeHub</title>
-
-    <style>
-        body {
-            margin: 0;
-            font-family: "Segoe UI", Tahoma, sans-serif;
-            background-color: #f4f6fb;
-            color: #333;
-        }
-
-        header {
-            background: #1f3cff;
-            color: white;
-            text-align: center;
-            padding: 55px 20px;
-        }
-
-        /* Logo */
-        .logo {
-            margin-bottom: 15px;
-        }
-
-        .logo svg {
-            width: 96px;
-            height: 96px;
-        }
-
-        /* Logo styling */
-        .hat-top { fill: url(#hatGradient); }
-        .hat-base { fill: #8fa0ff; }
-        .tassel-line, .tassel-dot {
-            stroke: #fff;
-            fill: #fff;
-        }
-
-        .tassel {
-            transform-origin: top center;
-            animation: tasselSwing 3s ease-in-out infinite;
-        }
-
-        @keyframes tasselSwing {
-            0% { transform: rotate(0deg); }
-            40% { transform: rotate(10deg); }
-            70% { transform: rotate(-6deg); }
-            100% { transform: rotate(0deg); }
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 38px;
-            letter-spacing: 0.5px;
-        }
-
-        header p {
-            font-size: 18px;
-            margin-top: 10px;
-            opacity: 0.9;
-        }
-
-        .nav {
-            display: flex;
-            gap: 25px;
-            justify-content: center;
-            margin-top: 18px;
-        }
-
-        .nav a {
-            color: white;
-            font-weight: 600;
-            text-decoration: none;
-            opacity: 0.9;
-        }
-
-        .nav a:hover {
-            opacity: 1;
-            text-decoration: underline;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: auto;
-            padding: 30px 20px;
-        }
-
-        h2 {
-            color: #1f3cff;
-            margin-bottom: 10px;
-        }
-
-        .card {
-            background: white;
-            padding: 22px;
-            border-radius: 12px;
-            margin-bottom: 28px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-        }
-
-        ul, ol {
-            padding-left: 20px;
-        }
-
-        a {
-            color: #1f3cff;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        .login-box input {
-            width: 97.5%;
-            padding: 11px;
-            margin-top: 10px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            font-size: 15px;
-        }
-
-        .login-box button {
-            margin-top: 16px;
-            width: 100%;
-            padding: 12px;
-            background-color: #1f3cff;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        .login-box button:hover {
-            background-color: #182fc2;
-        }
-
-        .login-box p {
-            text-align: center;
-            margin-top: 10px;
-        }
-
-        footer {
-            background-color: #e1e5ff;
-            text-align: center;
-            padding: 18px;
-            margin-top: 40px;
-            font-size: 14px;
-        }
-
-        /* animation */
-        .tassel {
-            transform-origin: top center;
-            animation: tasselSwing 3s ease-in-out infinite;
-        }
-
-        @keyframes tasselSwing {
-            0%   { transform: rotate(0deg); }
-            40%  { transform: rotate(10deg); }
-            70%  { transform: rotate(-6deg); }
-            100% { transform: rotate(0deg); }
-        }
-    </style>
-
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
 </head>
+
 <body>
 
-<header>
+    <header>
 
-    <div class="logo">
-        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-                <linearGradient id="hatGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="rgb(12, 1, 92)"/>
-                    <stop offset="100%" stop-color="rgb(12, 1, 92)"/>
-                </linearGradient>
-            </defs>
+        <div class="logo">
+            <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="hatGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="rgb(12, 1, 92)" />
+                        <stop offset="100%" stop-color="rgb(12, 1, 92)" />
+                    </linearGradient>
+                </defs>
 
-            <polygon class="hat-top" points="60,20 112,45 60,70 8,45"/>
-            <rect class="hat-base" x="34" y="76" width="52" height="12" rx="4"/>
+                <polygon class="hat-top" points="60,20 112,45 60,70 8,45" />
+                <rect class="hat-base" x="34" y="76" width="52" height="12" rx="4" />
 
-            <g class="tassel">
-                <line class="tassel-line" x1="60" y1="70" x2="60" y2="96" stroke-width="3"/>
-                <circle class="tassel-dot" cx="60" cy="101" r="5"/>
-            </g>
-        </svg>
-    </div>
-
-    <h1>KnowledgeHub</h1>
-    <p>Your place to learn, graduate, and succeed 🚀</p>
-
-    <div class="nav">
-        <a href="index.html">Home</a>
-        <a href="article.html">Articles</a>
-        <a href="tutorials.html">Tutorials</a>
-    </div>
-</header>
-
-<div class="container">
-
-    <form action="#">
-        <div class="card">
-            <h2>Login</h2>
-            <div class="login-box">
-                <input type="email" placeholder="Email address">
-                <input type="password" placeholder="Password">
-                <button>Login</button>
-                <p><a href="signup.html">Forgot Password?</a></p>
-            </div>
+                <g class="tassel">
+                    <line class="tassel-line" x1="60" y1="70" x2="60" y2="96" stroke-width="3" />
+                    <circle class="tassel-dot" cx="60" cy="101" r="5" />
+                </g>
+            </svg>
         </div>
-    </form>
 
-    
+        <h1>KnowledgeHub</h1>
+        <p>Your place to learn, graduate, and succeed 🚀</p>
 
-    <div class="card">
-        <h2>Featured Articles</h2>
-        <ul>
-            <li>What is Machine Learning?</li>
-            <li>Beginner Guide to Java Programming</li>
-            <li>Basics of Networking & Internet</li>
-            <li>Understanding Databases and SQL</li>
-        </ul>
+        <div class="nav">
+            <a href="index.html">Home</a>
+            <a href="article.html">Articles</a>
+            <a href="tutorials.html">Tutorials</a>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <form action="#">
+            <div class="card">
+                <h2>Login</h2>
+                <div class="login-box">
+                    <input type="email" placeholder="Email address">
+                    <input type="password" placeholder="Password">
+                    <button>Login</button>
+                    <p><a href="signup.html">Forgot Password?</a></p>
+                </div>
+            </div>
+        </form>
+
+
+
+        <div class="card">
+            <h2>Featured Articles</h2>
+            <ul>
+                <li>What is Machine Learning?</li>
+                <li>Beginner Guide to Java Programming</li>
+                <li>Basics of Networking & Internet</li>
+                <li>Understanding Databases and SQL</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>Popular Tutorials</h2>
+            <ol>
+                <li>Learn HTML in 20 Minutes</li>
+                <li>Java OOP Explained with Examples</li>
+                <li>How to Build a Simple REST API</li>
+                <li>Version Control with Git and GitHub</li>
+            </ol>
+        </div>
+
+        <div class="card">
+            <h2>About KnowledgeHub</h2>
+            <p>
+                KnowledgeHub was started in 2026 to help students, beginners,
+                and professionals graduate from learning to real-world success
+                through simple and practical content.
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>Contact</h2>
+            <p>Email: info@knowledgehub.demo</p>
+            <p>Phone: +91 98765 43210</p>
+            <div id="map" style="width: 960px; height: 500px"></div>
+
+        </div>
+
     </div>
 
-    <div class="card">
-        <h2>Popular Tutorials</h2>
-        <ol>
-            <li>Learn HTML in 20 Minutes</li>
-            <li>Java OOP Explained with Examples</li>
-            <li>How to Build a Simple REST API</li>
-            <li>Version Control with Git and GitHub</li>
-        </ol>
-    </div>
+    <footer>
+        © 2026 KnowledgeHub. All Rights Reserved.
+    </footer>
 
-    <div class="card">
-        <h2>About KnowledgeHub</h2>
-        <p>
-            KnowledgeHub was started in 2026 to help students, beginners,
-            and professionals graduate from learning to real-world success
-            through simple and practical content.
-        </p>
-    </div>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+    <script>
+        const map = L.map('map');
 
-    <div class="card">
-        <h2>Contact</h2>
-        <p>Email: info@knowledgehub.demo</p>
-        <p>Phone: +91 98765 43210</p>
-    </div>
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
 
-</div>
+        map.setView([19.208315724672683, 73.01107877866411], 16);
 
-<footer>
-    © 2026 KnowledgeHub. All Rights Reserved.
-</footer>
+        const googleStyleIcon = L.divIcon({
+            className: "",
+            html: `
+        <svg width="40" height="60" viewBox="0 0 24 36">
+            <path d="M12 0C5 0 0 5 0 12c0 9 12 24 12 24s12-15 12-24C24 5 19 0 12 0z"
+                  fill="#EA4335"/>
+            <circle cx="12" cy="12" r="5" fill="white"/>
+        </svg>
+        `,
+            iconSize: [40, 60],
+            iconAnchor: [20, 60]
+        });
+
+        L.marker([19.208315724672683, 73.01107877866411], { icon: googleStyleIcon })
+            .addTo(map)
+            .bindPopup("Google Style Marker")
+            .openPopup();
+    </script>
 
 </body>
+
 </html>
