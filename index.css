@@ -1,8 +1,15 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     font-family: "Segoe UI", Tahoma, sans-serif;
     background-color: #f4f6fb;
     color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 header {
@@ -95,6 +102,8 @@ header p {
     max-width: 1000px;
     margin: auto;
     padding: 30px 20px;
+    width: 100%;
+    flex: 1;
 }
 
 h2 {
@@ -125,12 +134,18 @@ a:hover {
 }
 
 .login-box input {
-    width: 97.5%;
+    width: 100%;
     padding: 11px;
     margin-top: 10px;
     border-radius: 6px;
     border: 1px solid #ccc;
     font-size: 15px;
+}
+
+.login-box input:focus {
+    outline: none;
+    border-color: #1f3cff;
+    box-shadow: 0 0 0 2px rgba(31, 60, 255, 0.15);
 }
 
 .login-box button {
@@ -143,6 +158,7 @@ a:hover {
     border-radius: 6px;
     font-size: 16px;
     cursor: pointer;
+    transition: background 0.2s ease;
 }
 
 .login-box button:hover {
@@ -158,36 +174,82 @@ footer {
     background-color: #e1e5ff;
     text-align: center;
     padding: 18px;
-    margin-top: 40px;
     font-size: 14px;
-}
-
-/* animation */
-.tassel {
-    transform-origin: top center;
-    animation: tasselSwing 3s ease-in-out infinite;
-}
-
-@keyframes tasselSwing {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    40% {
-        transform: rotate(10deg);
-    }
-
-    70% {
-        transform: rotate(-6deg);
-    }
-
-    100% {
-        transform: rotate(0deg);
-    }
 }
 
 #map {
     width: 100%;
     height: 400px;
     border-radius: 8px;
+}
+
+/* Tablet */
+@media (max-width:768px) {
+
+    header {
+        padding: 40px 15px;
+    }
+
+    header h1 {
+        font-size: 30px;
+    }
+
+    header p {
+        font-size: 16px;
+    }
+
+    .logo svg {
+        width: 75px;
+        height: 75px;
+    }
+
+    .nav {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .container {
+        padding: 20px 15px;
+    }
+
+    .card {
+        padding: 18px;
+    }
+
+    #map {
+        height: 280px;
+    }
+
+}
+
+/* Mobile */
+@media (max-width:480px) {
+
+    header h1 {
+        font-size: 26px;
+    }
+
+    header p {
+        font-size: 14px;
+    }
+
+    .nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .logo svg {
+        width: 65px;
+        height: 65px;
+    }
+
+    .card {
+        padding: 16px;
+    }
+
+    #map {
+        height: 230px;
+    }
+
 }
