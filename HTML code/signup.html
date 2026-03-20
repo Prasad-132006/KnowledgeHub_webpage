@@ -1,55 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KnowledgeHub | Sign Up</title>
-    <link rel="stylesheet" href="signup.css">
+    <link rel="stylesheet" href="../CSS code/signup.css">
 </head>
+
 <body>
 
-<header>
-    <h1>KnowledgeHub</h1>
-    <p>Create your account and start learning 🚀</p>
-</header>
+    <header>
+        <h1>KnowledgeHub</h1>
+        <p>Create your account and start learning 🚀</p>
+    </header>
 
-<div class="container">
-    <div class="card">
-        <h2>Sign Up</h2>
+    <div class="container">
+        <div class="card">
+            <h2>Sign Up</h2>
 
-        <form action="index.html" onsubmit="return validatePassword()">
-            <input type="text" placeholder="First Name" pattern="[A-Z][a-z]*" title="First letter must be uppercase, rest lowercase">
-            <input type="text" placeholder="Last Name" pattern="[A-Z][a-z]*" title="First letter must be uppercase, rest lowercase">
-            <input type="email" placeholder="Email Address">
-            <input type="password" placeholder="Create Password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}" required title="Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character." id="password">
-            <input type="password" placeholder="Confirm Password" id="confirmPassword">
-            <button>Create Account</button>
-        </form>
+            <form action="index.html" onsubmit="return validatePassword()">
+                <input type="text" placeholder="First Name" pattern="[A-Z][a-z]*"
+                    title="First letter must be uppercase, rest lowercase">
+                <input type="text" placeholder="Last Name" pattern="[A-Z][a-z]*"
+                    title="First letter must be uppercase, rest lowercase">
+                <input type="email" placeholder="Email Address">
+                <input type="password" placeholder="Create Password"
+                    pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}" required
+                    title="Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character."
+                    id="password">
+                <input type="password" placeholder="Confirm Password" id="confirmPassword">
+                <button>Create Account</button>
+            </form>
 
-        <div class="text">
-            Already have an account?
-            <a href="index.html">Login</a>
+            <div class="text">
+                Already have an account?
+                <a href="index.html">Login</a>
+            </div>
         </div>
     </div>
-</div>
 
-<footer>
-    © 2026 KnowledgeHub. All Rights Reserved.
-</footer>
+    <footer>
+        © 2026 KnowledgeHub. All Rights Reserved.
+    </footer>
 
-<script>
-    function validatePassword() {
-        const password = document.getElementById("password").value;
-        const confirmPassword = document.getElementById("confirmPassword").value;
+    <script>
+        function validatePassword() {
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
 
-        if (password !== confirmPassword) {
-            alert("Passwords do not match!");
-            return false;
+            // 1. Check if passwords match
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return false
+            }
+
+            let currentCount = localStorage.getItem('knowledgeHub_users') || 0;
+            currentCount = parseInt(currentCount) + 1;
+            localStorage.setItem('knowledgeHub_users', currentCount);
+
+            alert("Account Created Successfully! Redirecting to Home...");
+
+            return true;
         }
-
-        return true;
-    }
-</script>
+    </script>
 
 </body>
+
 </html>
