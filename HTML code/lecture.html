@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Learning Dashboard | KnowledgeHub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS code/index.css">
+</head>
+<body>
+
+<header>
+    <button class="logout-header-btn" onclick="logout()">Logout</button>
+    <h1 id="welcomeGreeting">Welcome back!</h1>
+    <p>Your Live Session Dashboard 🚀</p>
+</header>
+
+<div class="container">
+    <div class="card">
+        <h2>Today's Live Lectures</h2>
+        <table class="lecture-list">
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Advanced Java Programming</td>
+                    <td>10:00 AM</td>
+                    <td style="color: green; font-weight: bold;">● Live Now</td>
+                    <td><button class="live-btn" onclick="joinLecture('Java')">Join Class</button></td>
+                </tr>
+                <tr>
+                    <td>Database Management (SQL)</td>
+                    <td>01:30 PM</td>
+                    <td>Upcoming</td>
+                    <td><button class="live-btn" style="background-color: #6c757d;" disabled>Waiting</button></td>
+                </tr>
+                <tr>
+                    <td>Intro to AI & ML</td>
+                    <td>04:00 PM</td>
+                    <td>Upcoming</td>
+                    <td><button class="live-btn" style="background-color: #6c757d;" disabled>Waiting</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    // 1. SECURITY: Protect the page
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    const storedUser = JSON.parse(localStorage.getItem("userProfile"));
+
+    if (isLoggedIn !== "true" || !storedUser) {
+        window.location.href = "index.html";
+    } else {
+        // Personalize Greeting
+        document.getElementById("welcomeGreeting").innerText = `Welcome, ${storedUser.firstName}!`;
+    }
+
+    // 2. LOGOUT FUNCTION
+    function logout() {
+        if(confirm("Are you sure you want to logout?")) {
+            localStorage.removeItem("isLoggedIn");
+            window.location.href = "index.html";
+        }
+    }
+
+    // 3. JOIN LECTURE FUNCTION
+    function joinLecture(subject) {
+        alert(`Connecting you to the Live ${subject} Session...`);
+        // In a real app, you would use: window.location.href = "zoom-link-here";
+    }
+</script>
+
+</body>
+</html>
