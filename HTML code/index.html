@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>KnowledgeHub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../CSS code/index.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
 </head>
 
@@ -48,16 +48,14 @@
         <form action="#">
             <div class="card">
                 <h2>Login</h2>
-                <div class="login-box">
-                    <input type="email" placeholder="Email address">
-                    <input type="password" placeholder="Password">
-                    <button>Login</button>
+                <div class="login-box" id="auth-container">
+                    <input type="email" id="loginEmail" placeholder="Email address">
+                    <input type="password" id="loginPassword" placeholder="Password">
+                    <button type="button" onclick="handleLogin()">Login</button>
                     <p>New user, Sign up <a href="signup.html">here</a></p>
                 </div>
             </div>
         </form>
-
-
 
         <div class="card">
             <h2>Featured Articles</h2>
@@ -86,12 +84,6 @@
                 and professionals graduate from learning to real-world success
                 through simple and practical content.
             </p>
-            <h3>
-                <p id="userCount">
-
-                </p>
-            </h3>
-
         </div>
 
         <div class="card">
@@ -99,6 +91,7 @@
             <p>Email: info@knowledgehub.demo</p>
             <p>Phone: +91 98765 43210</p>
             <div id="map"></div>
+
         </div>
 
     </div>
@@ -108,7 +101,6 @@
     </footer>
 
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
-
     <script>
         const map = L.map('map');
 
@@ -136,16 +128,51 @@
             .addTo(map)
             .bindPopup("Google Style Marker")
             .openPopup();
-            window.onload = function () {
-                const userDisplay = document.getElementById("userCount");
 
-                const savedCount = localStorage.getItem('knowledgeHub_users') || 0;
+        // --- UPDATED handleLogin ---
+        function handleLogin() {
+            const emailInput = document.getElementById('loginEmail').value;
+            const passInput = document.getElementById('loginPassword').value;
 
-                if (userDisplay) {
-                    userDisplay.innerText = `Number of students enrolled: ${savedCount}`;
-                }
-            };
+            const storedUser = JSON.parse(localStorage.getItem("userProfile"));
+
+            if (storedUser && emailInput === storedUser.email && passInput === storedUser.password) {
+                localStorage.setItem("isLoggedIn", "true");
+
+                // CHANGE: Redirect to the lecture page instead of reloading
+                window.location.href = "lecture.html";
+            } else {
+                alert("Invalid email or password. Please sign up first.");
+            }
+        }
+
+        function logout() {
+            console.log("Logging out..."); // Helps you see if it's working in the Console
+            localStorage.removeItem("isLoggedIn");
+            window.location.href = "index.html"; // Redirect to home/refresh
+        }
+
+        // --- UPDATED window.load ---
+        wwindow.addEventListener('load', () => {
+            // ... your existing Leaflet Map code ...
+
+            const isLoggedIn = localStorage.getItem("isLoggedIn");
+            const storedUser = JSON.parse(localStorage.getItem("userProfile"));
+            const authContainer = document.getElementById('auth-container');
+
+            if (isLoggedIn === "true" && storedUser) {
+                authContainer.innerHTML = `
+            <h3>Welcome back, ${storedUser.firstName}!</h3>
+            <button onclick="window.location.href='lecture.html'">Join Live Lecture 🎥</button>
+            <br><br>
+            <button onclick="logout()" style="background: none; border: none; color: red; cursor: pointer; text-decoration: underline;">
+                Logout
+            </button>
+        `;
+            }
+        });
     </script>
+
 </body>
 
 </html>
