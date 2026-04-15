@@ -45,13 +45,13 @@
 
     <div class="container">
 
-        <form action="#">
+        <form action="#" onsubmit="handleLogin(); return false;">
             <div class="card">
                 <h2>Login</h2>
                 <div class="login-box" id="auth-container">
                     <input type="email" id="loginEmail" placeholder="Email address">
                     <input type="password" id="loginPassword" placeholder="Password">
-                    <button type="button" onclick="handleLogin()">Login</button>
+                    <button type="submit">Login</button>
                     <p>New user, Sign up <a href="signup.html">here</a></p>
                 </div>
             </div>
@@ -84,6 +84,7 @@
                 and professionals graduate from learning to real-world success
                 through simple and practical content.
             </p>
+            <p><b>Total Registered Users:</b> <span id="userCount">0</span></p>
         </div>
 
         <div class="card">
@@ -91,7 +92,6 @@
             <p>Email: info@knowledgehub.demo</p>
             <p>Phone: +91 98765 43210</p>
             <div id="map"></div>
-
         </div>
 
     </div>
@@ -129,46 +129,54 @@
             .bindPopup("Google Style Marker")
             .openPopup();
 
-        // --- UPDATED handleLogin ---
         function handleLogin() {
-            const emailInput = document.getElementById('loginEmail').value;
-            const passInput = document.getElementById('loginPassword').value;
+            const emailField = document.getElementById('loginEmail');
+            const passField = document.getElementById('loginPassword');
 
+            // Check if elements exist before grabbing values
+            if (!emailField || !passField) return;
+
+            const emailInput = emailField.value;
+            const passInput = passField.value;
             const storedUser = JSON.parse(localStorage.getItem("userProfile"));
 
             if (storedUser && emailInput === storedUser.email && passInput === storedUser.password) {
                 localStorage.setItem("isLoggedIn", "true");
-
-                // CHANGE: Redirect to the lecture page instead of reloading
-                window.location.href = "lecture.html";
+                // Reload to show the "Welcome Back" UI on this page
+                location.reload();
             } else {
-                alert("Invalid email or password. Please sign up first.");
+                alert("Invalid email or password.");
             }
         }
 
         function logout() {
-            console.log("Logging out..."); // Helps you see if it's working in the Console
             localStorage.removeItem("isLoggedIn");
-            window.location.href = "index.html"; // Redirect to home/refresh
+            location.reload();
         }
 
-        // --- UPDATED window.load ---
-        wwindow.addEventListener('load', () => {
-            // ... your existing Leaflet Map code ...
+        function joinLecture() {
+            window.location.href = "lecture.html";
+        }
 
+        window.addEventListener('load', () => {
             const isLoggedIn = localStorage.getItem("isLoggedIn");
             const storedUser = JSON.parse(localStorage.getItem("userProfile"));
             const authContainer = document.getElementById('auth-container');
+            const userCountSpan = document.getElementById("userCount");
 
-            if (isLoggedIn === "true" && storedUser) {
-                authContainer.innerHTML = `
-            <h3>Welcome back, ${storedUser.firstName}!</h3>
-            <button onclick="window.location.href='lecture.html'">Join Live Lecture 🎥</button>
-            <br><br>
-            <button onclick="logout()" style="background: none; border: none; color: red; cursor: pointer; text-decoration: underline;">
-                Logout
-            </button>
-        `;
+            if (userCountSpan) {
+                userCountSpan.innerText = localStorage.getItem("knowledgeHub_users") || 0;
+            }
+
+            if (isLoggedIn === "true" && storedUser && authContainer) {
+                    authContainer.innerHTML = `
+                    <h3>Welcome back, ${storedUser.firstName}!</h3>
+                    <button onclick="joinLecture()">Join Live Lecture 🎥</button>
+                    <br><br>
+                    <button onclick="logout()" style="background:none; border:none; color:red; cursor:pointer; text-decoration:underline;">
+                        Logout
+                    </button>
+                `;
             }
         });
     </script>
