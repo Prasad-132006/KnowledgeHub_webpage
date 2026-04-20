@@ -5,84 +5,174 @@
     <meta charset="UTF-8">
     <title>KnowledgeHub | Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../CSS code/index.css">
+    <style>
+        body { font-family: Arial; margin: 0; background: #f4f6f9; }
+
+        header {
+            background: #007bff;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            position: relative;
+        }
+
+        .logout-header-btn {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            padding: 8px;
+            background: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .container { padding: 20px; }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        table { width: 100%; border-collapse: collapse; }
+
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .live-btn {
+            padding: 6px 12px;
+            background: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        select { padding: 8px; margin-bottom: 15px; }
+    </style>
 </head>
 
 <body>
 
-    <header>
-        <button class="logout-header-btn" onclick="logout()">Logout</button>
-        <h1 id="welcomeGreeting">Welcome back!</h1>
-        <p>Your Live Session Dashboard 🚀</p>
-    </header>
+<header>
+    <button class="logout-header-btn" onclick="logout()">Logout</button>
+    <h1 id="welcomeGreeting">Welcome back!</h1>
+    <p>Your Live Session Dashboard 🚀</p>
+</header>
 
-    <div class="container">
-        <div class="card">
-            <h2>Today's Live Lectures</h2>
-            <table class="lecture-list">
-                <thead>
-                    <tr>
-                        <th>Subject</th>
-                        <th>Time</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Advanced Java Programming</td>
-                        <td>10:00 AM</td>
-                        <td style="color: green; font-weight: bold;">● Live Now</td>
-                        <td><button class="live-btn" onclick="joinLecture('Java')">Join Class</button></td>
-                    </tr>
-                    <tr>
-                        <td>Database Management (SQL)</td>
-                        <td>01:30 PM</td>
-                        <td>Upcoming</td>
-                        <td><button class="live-btn" style="background-color: #6c757d;" disabled>Waiting</button></td>
-                    </tr>
-                    <tr>
-                        <td>Intro to AI & ML</td>
-                        <td>04:00 PM</td>
-                        <td>Upcoming</td>
-                        <td><button class="live-btn" style="background-color: #6c757d;" disabled>Waiting</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+<div class="container">
+    <div class="card">
+
+        <h2>Filter by Subject</h2>
+        <select id="subjectSelect" onchange="filterTable()"></select>
+
+        <h2>Today's Live Lectures</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody id="lectureTable">
+            </tbody>
+        </table>
+
     </div>
+</div>
 
-    <script>
-        // 1. SECURITY: Protect the page
-        const isLoggedIn = localStorage.getItem("isLoggedIn");
-        const storedUser = JSON.parse(localStorage.getItem("userProfile"));
+<script>
+    if (!localStorage.getItem("lectures")) {
+        const lectures = [
+            { subject: "Advanced Java Programming", time: "10:00 AM", status: "Live" },
+            { subject: "Database Management (SQL)", time: "01:30 PM", status: "Upcoming" },
+            { subject: "Intro to AI & ML", time: "04:00 PM", status: "Upcoming" }
+        ];
+        localStorage.setItem("lectures", JSON.stringify(lectures));
+    }
 
-        function greet() {
-            return "Welcome " + this.firstName + "!";
-        }
+    function loadSubjects() {
+        const lectures = JSON.parse(localStorage.getItem("lectures"));
+        const dropdown = document.getElementById("subjectSelect");
 
-        if (isLoggedIn !== "true" || !storedUser) {
-            window.location.href = "index.html";
-        } else {
-            // Personalize Greeting
-            const message = greet.call(storedUser);
-            document.getElementById("welcomeGreeting").innerText = message;
-        }
+        dropdown.innerHTML = `<option value="All">All Subjects</option>`;
 
-        // 2. LOGOUT FUNCTION
-        function logout() {
-            if (confirm("Are you sure you want to logout?")) {
-                localStorage.removeItem("isLoggedIn");
-                window.location.href = "index.html";
+        lectures.forEach(lec => {
+            const option = document.createElement("option");
+            option.value = lec.subject;
+            option.textContent = lec.subject;
+            dropdown.appendChild(option);
+        });
+    }
+
+    function loadTable(filter = "All") {
+        const lectures = JSON.parse(localStorage.getItem("lectures"));
+        const table = document.getElementById("lectureTable");
+
+        table.innerHTML = "";
+
+        lectures.forEach(lec => {
+            if (filter === "All" || lec.subject === filter) {
+                const row = document.createElement("tr");
+
+                row.innerHTML = `
+                    <td>${lec.subject}</td>
+                    <td>${lec.time}</td>
+                    <td style="color:${lec.status === "Live" ? "green" : "black"};">
+                        ${lec.status === "Live" ? "● Live Now" : "Upcoming"}
+                    </td>
+                    <td>
+                        ${
+                            lec.status === "Live"
+                            ? `<button class="live-btn" onclick="joinLecture('${lec.subject}')">Join</button>`
+                            : `<button class="live-btn" disabled style="background:#6c757d;">Waiting</button>`
+                        }
+                    </td>
+                `;
+
+                table.appendChild(row);
             }
-        }
+        });
+    }
 
-        // 3. JOIN LECTURE FUNCTION
-        function joinLecture(subject = "Java") {
-            alert(`Connecting you to the Live ${subject} Session...`);
+    function filterTable() {
+        const selected = document.getElementById("subjectSelect").value;
+        loadTable(selected);
+    }
+
+    function joinLecture(subject) {
+        alert(`Connecting you to the Live ${subject} Session...`);
+    }
+
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    const storedUser = JSON.parse(localStorage.getItem("userProfile"));
+
+    function greet() {
+        return "Welcome " + this.firstName + "!";
+    }
+
+    if (isLoggedIn !== "true" || !storedUser) {
+        window.location.href = "index.html";
+    } else {
+        document.getElementById("welcomeGreeting").innerText = greet.call(storedUser);
+    }
+
+    function logout() {
+        if (confirm("Logout?")) {
+            localStorage.removeItem("isLoggedIn");
+            window.location.href = "index.html";
         }
-    </script>
+    }
+
+    loadSubjects();
+    loadTable();
+</script>
 
 </body>
-
 </html>
