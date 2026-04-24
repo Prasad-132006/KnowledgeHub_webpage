@@ -23,7 +23,7 @@
             <input type="text" id="firstName" placeholder="First Name" required>
             <input type="text" id="lastName" placeholder="Last Name" required>
             <input type="email" id="email" placeholder="Email" required>
-            <input type="password" id="password" placeholder="Password" required>
+            <input type="password" id="password" placeholder="Password" pattern="(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,}" placeholder="Password" required>
             <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
 
             <button type="submit">Create Account</button>
