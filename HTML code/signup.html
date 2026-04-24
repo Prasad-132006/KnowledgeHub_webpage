@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,29 +17,22 @@
 
 <div class="container">
     <div class="card">
-
         <h2>Sign Up</h2>
 
-        <form action="index.html" onsubmit="return validatePassword()">
-            
+        <form onsubmit="return validateSignup()">
             <input type="text" id="firstName" placeholder="First Name" required>
-
             <input type="text" id="lastName" placeholder="Last Name" required>
-
-            <input type="email" id="email" placeholder="Email Address" required>
-
-            <input type="password" id="password" placeholder="Create Password" required>
-
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Password" required>
             <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
 
-            <button>Create Account</button>
+            <button type="submit">Create Account</button>
         </form>
 
         <div class="text">
             Already have an account?
             <a href="index.html">Login</a>
         </div>
-
     </div>
 </div>
 
@@ -47,10 +41,10 @@
 </footer>
 
 <script>
-function validatePassword() {
-    const firstName = document.getElementById("firstName").value;
-    const lastName = document.getElementById("lastName").value;
-    const email = document.getElementById("email").value;
+function validateSignup() {
+    const firstName = document.getElementById("firstName").value.trim();
+    const lastName = document.getElementById("lastName").value.trim();
+    const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
 
@@ -60,19 +54,21 @@ function validatePassword() {
     }
 
     const user = {
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        password: password
+        firstName,
+        lastName,
+        email,
+        password
     };
 
     localStorage.setItem("userProfile", JSON.stringify(user));
+    localStorage.setItem("isLoggedIn", "true");
 
-    let count = localStorage.getItem("knowledgeHub_users") || 0;
-    localStorage.setItem("knowledgeHub_users", parseInt(count) + 1);
+    alert("Account created successfully!");
 
-    alert("Account Created Successfully!");
-    return true;
+    // 👉 better UX: go to dashboard directly
+    window.location.href = "lecture.html";
+
+    return false;
 }
 </script>
 
