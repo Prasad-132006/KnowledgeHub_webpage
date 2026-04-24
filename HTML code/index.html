@@ -12,138 +12,193 @@
 
 <body>
 
-<header>
-    <div class="logo">
-        <svg viewBox="0 0 120 120">
-            <polygon points="60,20 112,45 60,70 8,45" />
-            <rect x="34" y="76" width="52" height="12" rx="4" />
-        </svg>
-    </div>
+    <header>
+        <div class="logo">
+            <svg viewBox="0 0 120 120" width="90" height="90" xmlns="http://www.w3.org/2000/svg">
 
-    <h1>KnowledgeHub</h1>
-    <p>Your place to learn, graduate, and succeed 🚀</p>
+                <defs>
+                    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#6ea8ff" />
+                        <stop offset="50%" stop-color="#3b5bff" />
+                        <stop offset="100%" stop-color="#1f3cff" />
+                    </linearGradient>
 
-    <div class="nav">
-        <a href="index.html">Home</a>
-        <a href="article.html">Articles</a>
-        <a href="tutorials.html">Tutorials</a>
-    </div>
-</header>
+                    <style>
+                        /* tassel swing animation */
+                        .tassel {
+                            transform-origin: 60px 75px;
+                            animation: swing 2s ease-in-out infinite;
+                        }
 
-<div class="container">
+                        @keyframes swing {
+                            0% {
+                                transform: rotate(8deg);
+                            }
 
-    <!-- LOGIN CARD -->
-    <div class="card">
-        <h2>Login</h2>
-        <div class="login-box">
-            <input type="email" id="loginEmail" placeholder="Email address">
-            <input type="password" id="loginPassword" placeholder="Password">
-            <button type="button" onclick="login()">Login</button>
-            <p>New user? <a href="signup.html">Sign up here</a></p>
+                            50% {
+                                transform: rotate(-8deg);
+                            }
+
+                            100% {
+                                transform: rotate(8deg);
+                            }
+                        }
+                    </style>
+                </defs>
+
+                <!-- cap top -->
+                <polygon points="60,15 112,45 60,75 8,45" fill="url(#grad)" />
+
+                <!-- cap base -->
+                <rect x="28" y="78" width="64" height="14" rx="7" fill="#0f1f6d" />
+
+                <!-- TASSEL GROUP (animated) -->
+                <g class="tassel">
+
+                    <!-- string -->
+                    <line x1="60" y1="75" x2="60" y2="105" stroke="#ffd84d" stroke-width="3" />
+
+                    <!-- ball -->
+                    <circle cx="60" cy="108" r="6" fill="#ffd84d" />
+                </g>
+
+            </svg>
         </div>
+
+        <h1>KnowledgeHub</h1>
+        <p>Your place to learn, graduate, and succeed 🚀</p>
+
+        <div class="nav">
+            <a href="index.html">Home</a>
+            <a href="article.html">Articles</a>
+            <a href="tutorials.html">Tutorials</a>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- LOGIN CARD -->
+        <div class="card">
+            <h2>Login</h2>
+            <div class="login-box">
+                <input type="email" id="loginEmail" placeholder="Email address">
+                <input type="password" id="loginPassword" placeholder="Password">
+                <button type="button" onclick="login()">Login</button>
+                <p>New user? <a href="signup.html">Sign up here</a></p>
+            </div>
+        </div>
+
+        <!-- ARTICLES -->
+        <div class="card">
+            <h2>Featured Articles</h2>
+            <ul>
+                <li>What is Machine Learning?</li>
+                <li>Beginner Guide to Java Programming</li>
+                <li>Basics of Networking & Internet</li>
+                <li>Understanding Databases and SQL</li>
+            </ul>
+        </div>
+
+        <!-- TUTORIALS -->
+        <div class="card">
+            <h2>Popular Tutorials</h2>
+            <ol>
+                <li>Learn HTML in 20 Minutes</li>
+                <li>Java OOP Explained with Examples</li>
+                <li>How to Build a Simple REST API</li>
+                <li>Version Control with Git and GitHub</li>
+            </ol>
+        </div>
+
+        <!-- ABOUT -->
+        <div class="card">
+            <h2>About KnowledgeHub</h2>
+            <p>
+                KnowledgeHub was started in 2026 to help students, beginners,
+                and professionals succeed through practical content.
+            </p>
+            <h3 id="userCount"></h3>
+        </div>
+
+        <!-- CONTACT + MAP -->
+        <div class="card">
+            <h2>Contact</h2>
+            <p>Email: info@knowledgehub.com</p>
+            <p>Phone: +91 98765 43210</p>
+            <p>Location:</p>
+            <div id="map" style="height:300px;"></div>
+        </div>
+
     </div>
 
-    <!-- ARTICLES -->
-    <div class="card">
-        <h2>Featured Articles</h2>
-        <ul>
-            <li>What is Machine Learning?</li>
-            <li>Beginner Guide to Java Programming</li>
-            <li>Basics of Networking & Internet</li>
-            <li>Understanding Databases and SQL</li>
-        </ul>
-    </div>
+    <footer>
+        © 2026 KnowledgeHub. All Rights Reserved.
+    </footer>
 
-    <!-- TUTORIALS -->
-    <div class="card">
-        <h2>Popular Tutorials</h2>
-        <ol>
-            <li>Learn HTML in 20 Minutes</li>
-            <li>Java OOP Explained with Examples</li>
-            <li>How to Build a Simple REST API</li>
-            <li>Version Control with Git and GitHub</li>
-        </ol>
-    </div>
+    <script>
+        /* ---------------- LOGIN ---------------- */
+        function login() {
+            const email = document.getElementById("loginEmail").value;
+            const password = document.getElementById("loginPassword").value;
 
-    <!-- ABOUT -->
-    <div class="card">
-        <h2>About KnowledgeHub</h2>
-        <p>
-            KnowledgeHub was started in 2026 to help students, beginners,
-            and professionals succeed through practical content.
-        </p>
-        <h3 id="userCount"></h3>
-    </div>
+            const storedUser = JSON.parse(localStorage.getItem("userProfile"));
 
-    <!-- CONTACT + MAP -->
-    <div class="card">
-        <h2>Contact</h2>
-        <p>Email: info@knowledgehub.demo</p>
-        <p>Phone: +91 98765 43210</p>
-        <p>Location:</p>
-        <div id="map" style="height:300px;"></div>
-    </div>
+            if (!storedUser) {
+                alert("No user found. Please sign up first.");
+                return;
+            }
 
-</div>
+            if (email === storedUser.email && password === storedUser.password) {
+                localStorage.setItem("isLoggedIn", "true");
+                alert("Login Successful!");
+                window.location.href = "lecture.html";
 
-<footer>
-    © 2026 KnowledgeHub. All Rights Reserved.
-</footer>
+            } else {
+                alert("Invalid email or password!");
+            }
+        }
 
-<script>
-/* ---------------- LOGIN ---------------- */
-function login() {
-    const email = document.getElementById("loginEmail").value;
-    const password = document.getElementById("loginPassword").value;
+        /* ---------------- USER COUNT ---------------- */
+        window.onload = function () {
+            const userDisplay = document.getElementById("userCount");
 
-    const storedUser = JSON.parse(localStorage.getItem("userProfile"));
+            let count = Number(localStorage.getItem("knowledgeHub_users"));
 
-    if (!storedUser) {
-        alert("No user found. Please sign up first.");
-        return;
-    }
+            if (isNaN(count)) {
+                count = 0;
+            } else {
+                count = count + 1;
+                localStorage.setItem("knowledgeHub_users",count)
+            }
 
-    if (email === storedUser.email && password === storedUser.password) {
-        localStorage.setItem("isLoggedIn", "true");
-        alert("Login Successful!");
-        window.location.href = "lecture.html";
-    } else {
-        alert("Invalid email or password!");
-    }
-}
+            if (userDisplay) {
+                userDisplay.innerText = `Number of students enrolled: ${count}`;
+            }
+        };
 
-/* ---------------- USER COUNT ---------------- */
-window.onload = function () {
-    const userDisplay = document.getElementById("userCount");
-    const savedCount = localStorage.getItem('knowledgeHub_users') || 0;
+        /* ---------------- MAP ---------------- */
+        const map = L.map('map');
 
-    if (userDisplay) {
-        userDisplay.innerText = "Number of students enrolled: " + savedCount;
-    }
-};
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19
+        }).addTo(map);
 
-/* ---------------- MAP ---------------- */
-const map = L.map('map');
+        map.setView([19.2083, 73.0110], 16);
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19
-}).addTo(map);
-
-map.setView([19.2083, 73.0110], 16);
-
-const icon = L.divIcon({
-    html: `<svg width="40" height="60">
+        const icon = L.divIcon({
+            html: `<svg width="40" height="60">
         <path d="M12 0C5 0 0 5 0 12c0 9 12 24 12 24s12-15 12-24C24 5 19 0 12 0z"
         fill="#EA4335"/>
         <circle cx="12" cy="12" r="5" fill="white"/>
     </svg>`
-});
+        });
 
-L.marker([19.2083, 73.0110], { icon }).addTo(map)
-    .bindPopup("KnowledgeHub Location")
-    .openPopup();
+        L.marker([19.2083, 73.0110], { icon }).addTo(map)
+            .bindPopup("KnowledgeHub Location")
+            .openPopup();
 
-</script>
+    </script>
 
 </body>
+
 </html>
