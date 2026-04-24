@@ -4,109 +4,145 @@
 <head>
     <meta charset="UTF-8">
     <title>KnowledgeHub</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="stylesheet" href="../CSS code/index.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
-
-    <style>
-        #map {
-            height: 250px;
-            width: 100%;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
 </head>
 
 <body>
 
 <header>
+    <div class="logo">
+        <svg viewBox="0 0 120 120">
+            <polygon points="60,20 112,45 60,70 8,45" />
+            <rect x="34" y="76" width="52" height="12" rx="4" />
+        </svg>
+    </div>
+
     <h1>KnowledgeHub</h1>
-    <p>Your place to learn 🚀</p>
+    <p>Your place to learn, graduate, and succeed 🚀</p>
+
+    <div class="nav">
+        <a href="index.html">Home</a>
+        <a href="article.html">Articles</a>
+        <a href="tutorials.html">Tutorials</a>
+    </div>
 </header>
 
 <div class="container">
 
-    <form onsubmit="handleLogin(); return false;">
-        <div class="card">
-            <h2>Login</h2>
-            <div id="auth-container">
-                <input type="email" id="loginEmail" placeholder="Email address" required>
-                <input type="password" id="loginPassword" placeholder="Password" required>
-                <button type="submit">Login</button>
-                <p>New user? <a href="signup.html">Sign up</a></p>
-            </div>
-        </div>
-    </form>
-
+    <!-- LOGIN CARD -->
     <div class="card">
-        <h2>Total Users</h2>
-        <p><span id="userCount">0</span></p>
+        <h2>Login</h2>
+        <div class="login-box">
+            <input type="email" id="loginEmail" placeholder="Email address">
+            <input type="password" id="loginPassword" placeholder="Password">
+            <button type="button" onclick="login()">Login</button>
+            <p>New user? <a href="signup.html">Sign up here</a></p>
+        </div>
     </div>
 
+    <!-- ARTICLES -->
+    <div class="card">
+        <h2>Featured Articles</h2>
+        <ul>
+            <li>What is Machine Learning?</li>
+            <li>Beginner Guide to Java Programming</li>
+            <li>Basics of Networking & Internet</li>
+            <li>Understanding Databases and SQL</li>
+        </ul>
+    </div>
+
+    <!-- TUTORIALS -->
+    <div class="card">
+        <h2>Popular Tutorials</h2>
+        <ol>
+            <li>Learn HTML in 20 Minutes</li>
+            <li>Java OOP Explained with Examples</li>
+            <li>How to Build a Simple REST API</li>
+            <li>Version Control with Git and GitHub</li>
+        </ol>
+    </div>
+
+    <!-- ABOUT -->
+    <div class="card">
+        <h2>About KnowledgeHub</h2>
+        <p>
+            KnowledgeHub was started in 2026 to help students, beginners,
+            and professionals succeed through practical content.
+        </p>
+        <h3 id="userCount"></h3>
+    </div>
+
+    <!-- CONTACT + MAP -->
     <div class="card">
         <h2>Contact</h2>
-        <div id="map"></div>
+        <p>Email: info@knowledgehub.demo</p>
+        <p>Phone: +91 98765 43210</p>
+        <p>Location:</p>
+        <div id="map" style="height:300px;"></div>
     </div>
 
 </div>
 
-<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+<footer>
+    © 2026 KnowledgeHub. All Rights Reserved.
+</footer>
 
 <script>
-    // MAP
-    const map = L.map('map').setView([19.2083, 73.0110], 16);
+/* ---------------- LOGIN ---------------- */
+function login() {
+    const email = document.getElementById("loginEmail").value;
+    const password = document.getElementById("loginPassword").value;
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap'
-    }).addTo(map);
+    const storedUser = JSON.parse(localStorage.getItem("userProfile"));
 
-    L.marker([19.2083, 73.0110]).addTo(map)
-        .bindPopup("KnowledgeHub Location")
-        .openPopup();
-
-    // LOGIN
-    function handleLogin() {
-        const email = document.getElementById('loginEmail').value;
-        const password = document.getElementById('loginPassword').value;
-        const storedUser = JSON.parse(localStorage.getItem("userProfile"));
-
-        if (storedUser && email === storedUser.email && password === storedUser.password) {
-            localStorage.setItem("isLoggedIn", "true");
-            window.location.href = "lecture.html";
-        } else {
-            alert("Invalid email or password.");
-        }
+    if (!storedUser) {
+        alert("No user found. Please sign up first.");
+        return;
     }
 
-    function logout() {
-        localStorage.removeItem("isLoggedIn");
-        location.reload();
-    }
-
-    function joinLecture() {
+    if (email === storedUser.email && password === storedUser.password) {
+        localStorage.setItem("isLoggedIn", "true");
+        alert("Login Successful!");
         window.location.href = "lecture.html";
+    } else {
+        alert("Invalid email or password!");
     }
+}
 
-    // ON LOAD
-    window.onload = function () {
-        const isLoggedIn = localStorage.getItem("isLoggedIn");
-        const user = JSON.parse(localStorage.getItem("userProfile"));
-        const authContainer = document.getElementById("auth-container");
+/* ---------------- USER COUNT ---------------- */
+window.onload = function () {
+    const userDisplay = document.getElementById("userCount");
+    const savedCount = localStorage.getItem('knowledgeHub_users') || 0;
 
-        // user count
-        document.getElementById("userCount").innerText =
-            localStorage.getItem("knowledgeHub_users") || 0;
+    if (userDisplay) {
+        userDisplay.innerText = "Number of students enrolled: " + savedCount;
+    }
+};
 
-        // logged in UI
-        if (isLoggedIn === "true" && user) {
-            authContainer.innerHTML = `
-                <h3>Welcome back, ${user.firstName}!</h3>
-                <button onclick="joinLecture()">Join Lecture 🎥</button>
-                <br><br>
-                <button onclick="logout()" style="color:red;">Logout</button>
-            `;
-        }
-    };
+/* ---------------- MAP ---------------- */
+const map = L.map('map');
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19
+}).addTo(map);
+
+map.setView([19.2083, 73.0110], 16);
+
+const icon = L.divIcon({
+    html: `<svg width="40" height="60">
+        <path d="M12 0C5 0 0 5 0 12c0 9 12 24 12 24s12-15 12-24C24 5 19 0 12 0z"
+        fill="#EA4335"/>
+        <circle cx="12" cy="12" r="5" fill="white"/>
+    </svg>`
+});
+
+L.marker([19.2083, 73.0110], { icon }).addTo(map)
+    .bindPopup("KnowledgeHub Location")
+    .openPopup();
+
 </script>
 
 </body>
